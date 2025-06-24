@@ -1,6 +1,7 @@
 from tkinter import Tk,Button,Frame,Label,filedialog,messagebox
 from zipfile import ZipFile
 from os import path
+from threading import Thread
 
 root = Tk()
 root.geometry("230x200+700+200")
@@ -21,7 +22,9 @@ def zip_file():
     messagebox.showinfo('Success','Files zipped successfully!')
     Done_popup.config(text='Done')
 
-
+def threaded_zip_file():
+    thread = Thread(target=zip_file)
+    thread.start()
 
 frame_1 = Frame(root)
 frame_1.place(x=10,y=10)
@@ -32,7 +35,7 @@ browse_btn.grid(row=0,column=0,padx=10,pady=10)
 Done_popup = Label(root,text="Ready")
 Done_popup.place(x=70,y=80)
 
-strt_btn = Button(root,command=zip_file,width=8,text='Zip',background="#636363",foreground="white",font=('arial',11))
+strt_btn = Button(root,command=threaded_zip_file,width=8,text='Zip',background="#636363",foreground="white",font=('arial',11))
 strt_btn.place(x=100,y=150)
 
 
